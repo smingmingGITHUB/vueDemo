@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<style type="text/css" id="styleType">
+
+
+</style>
+
+<body>
+  <pre id="content">至不死的         你</pre>
+
+  <script>
+  // 定位style的标签
+  var styleType = document.getElementById("styleType")
+  // 定位pre标签
+  var content = document.getElementById("content")
+  // 静态定义要渲染的内容
+  var contentStr = '\/* 用一些简单的 css 进行检验 *\/\n\/* 设置个宽、高、背景颜色跟字体颜色 *\/\n '
+  var styleTypeStr = '#content {\n  width: 250px;\n  height: 200px;\n  background: #666;\n  color: #fff;\n}'
+  // 定义一个技术器
+  var count = 0
+
+var controller = setInterval(put, 50)
+  // put 方法
+  function put() {
+    count++
+    if(count>0 && count<=contentStr.length) {
+      content.innerHTML = contentStr.substring(0, count)
+      // styleType.innerHTML = contentStr.substring(0, count)
+    }else {
+      styleType.innerHTML = styleTypeStr
+      clearInterval(controller)
+    }
+  }
+  </script>
+</body>
+<script type="text/javascript">
+  document.write("<div class='dt'>");
+  for (var i = 0; i < 10; i++) {
+    document.write("<div>");
+    for (var k = 1; k <= i; k++) {
+      document.write("<span class='column'>" + i + "×" + k + "=" + i * k + "</span>");
+    }
+    document.write("</div>");
+  }
+  document.write("</div>");
+</script>
+<style type="text/css">
+  .box {
+    text-align: center;
+  }
+
+  .column {
+    display: inline-block;
+    width: 51px;
+    height: 17px;
+    font-size: 12px;
+    border: 1px solid #E2E2E2;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    padding: 5px 10px;
+
+  }
+
+  .dt {
+    text-align: center;
+  }
+</style>
+
+</html>
