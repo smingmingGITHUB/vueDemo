@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import '../public/ele.css'
 import Vue from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import Test from './components/Test'
@@ -33,7 +34,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -42,6 +43,10 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
-
+#app /deep/
+.el-input-number /deep/
+.el-input /deep/
+.el-input__inner {
+  background: red !important
+}
 </style>

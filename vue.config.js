@@ -1,4 +1,7 @@
 const path = require('path')
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
 module.exports = {
   // 基本路径
   baseUrl: './',
@@ -8,8 +11,6 @@ module.exports = {
   lintOnSave: true,
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-  chainWebpack: () => {},
-  configureWebpack: () => {},
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: true,
   // css相关配置
@@ -34,6 +35,7 @@ module.exports = {
     open: process.platform === 'darwin',
     host: '0.0.0.0',
     port: 8080,
+    // https: true,
     https: true,
     hotOnly: false,
     proxy: {
@@ -44,28 +46,36 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
-     } 
+      }
     }, // 设置代理
-    before: app => {}
+    before: app => { }
   },
   // 第三方插件配置
   pluginOptions: {
     // ...
-    'style-resources-loader':{
+    'style-resources-loader': {
       test: /\.less$/,
-      loader: 'style-loader!css-loader!less-loader'
+      loader: 'style-loader!css-loader!less-loader',
     }
+  },
+  chainWebpack: (config) => {
+    config.module.rule('compile')
+      .test(/\.js$/)
+      .include
+      .add(resolve('src'))
+      .add(resolve('/node_modules/element-ui/src'))
+      .add(resolve('/node_modules/element-ui/packages'))
+      .add(resolve('/node_modules/_element-ui@2.10.1@element-ui/src'))
+      .add(resolve('/node_modules/_element-ui@2.10.1@element-ui/packages'))
+      .end()
+      .use('babel')
+      .loader('babel-loader')
+      .options({
+        presets: [
+          ['@babel/preset-env', {
+            modules: false
+          }]
+        ]
+      })
   }
-  // module: {
-  //     rules: [{
-  //       test: /\.less$/,
-  //       use: ['style-loader', 'css-loader', 'less-loader', {
-  //           loader: 'style-resources-loader',
-  //           options: {
-  //               patterns: path.resolve(__dirname, 'path/to/less/variables/*.less'),
-  //               injector: 'append'
-  //           }
-  //       }]
-  //     }]
-  // }
 }
